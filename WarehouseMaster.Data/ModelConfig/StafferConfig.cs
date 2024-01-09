@@ -16,6 +16,7 @@ namespace WarehouseMaster.Data.ModelConfig
             builder.Property(x => x.WorkExperience).HasColumnName("work_experience");
             builder.Property(x => x.AccessLevel).HasColumnName("access_level").IsRequired();
             builder.Property(x => x.Salary).HasColumnName("salary").IsRequired();
+            builder.Property(x => x.QRCode).HasColumnName("qr_code");
         }
     }
 }

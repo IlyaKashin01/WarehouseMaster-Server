@@ -1,19 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace WarehouseMaster.Domain.Entities
+namespace WarehouseMaster.Core.DTO.Staffer
 {
-    public class Staffer: BaseEntity
+    public class StafferRequest
     {
+        [Required]
         public int AccountId { get; set; }
-        public string Post {  get; set; } = string.Empty;
+        [Required]
+        public string Post { get; set; } = string.Empty;
+        [Required]
         public int WorkExperience { get; set; }
         public int AccessLevel { get; set; }
+        [Required]
         public decimal Salary { get; set; }
-        public List<Product> Products { get; set; } = new List<Product>();
-        public string QRCode { get; set; } = string.Empty;
     }
 }
