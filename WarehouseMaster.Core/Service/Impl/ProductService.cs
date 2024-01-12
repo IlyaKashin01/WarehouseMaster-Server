@@ -13,19 +13,19 @@ namespace WarehouseMaster.Core.Service.Impl
     public class ProductService : IProductService
     {
         private readonly IMapper _mapper;
-        //private readonly ILogger _logger;
+        private readonly ILogger<ProductService> _logger;
         private readonly IProductRepository _productRepository;
 
-        public ProductService(IMapper mapper, IProductRepository productRepository /*, ILogger logger*/)
+        public ProductService(IMapper mapper, IProductRepository productRepository, ILogger<ProductService> logger)
         {
             _mapper = mapper;
             _productRepository = productRepository;
-            //_logger = logger;
+            _logger = logger;
         }
 
         public async Task<int> CreateProductAsync(ProductRequest request)
         {
-            //_logger.LogInformation($"Обращение к методу создания продукта для объекта: {request}");
+            _logger.LogInformation($"Обращение к методу создания продукта для объекта: {request}");
             var product = _mapper.Map<Product>(request);
             product.QRCode = GenerateQrCode(product); 
             return await _productRepository.CreateAsync(product);
@@ -33,20 +33,20 @@ namespace WarehouseMaster.Core.Service.Impl
 
         public async Task<bool> DeleteProductAsync(int id)
         {
-            //_logger.LogInformation($"Обращение к методу удаления продукта с id: {id}");
+            _logger.LogInformation($"Обращение к методу удаления продукта с id: {id}");
             return await _productRepository.DeleteAsync(id);
         }
 
         public async Task<ProductResponse> GetProductByIdAsync(int id)
         {
-            //_logger.LogInformation($"Обращение к методу получения продукта по id: {id}");
+            _logger.LogInformation($"Обращение к методу получения продукта по id: {id}");
             var response = await _productRepository.GetByIdAsync(id);
             return _mapper.Map<ProductResponse>(response);
         }
 
         public async Task<bool> IsExistProductAsync(int id)
         {
-            //_logger.LogInformation($"Обращение к методу проверки существования продукта с id: {id}");
+            _logger.LogInformation($"Обращение к методу проверки существования продукта с id: {id}");
             return await _productRepository.IsExistAsync(id);
         }
 

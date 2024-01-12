@@ -10,15 +10,7 @@ namespace WarehouseMaster
     {
         public static IServiceCollection AddRepositoriesDI(this IServiceCollection services)
         {
-            services.AddLogging(builder =>
-             {
-                 builder.AddConsole();
-             });
             return services
-                /*.AddLogging(builder =>
-                {
-                    builder.AddConsole();
-                })*/
                 .AddScoped<IStafferRepository, StafferRepository>()
                 .AddScoped<ICategoryRepository, CategoryRepository>()
                 .AddScoped<ISubCategoryRepository, SubCategoryRepository>()
@@ -27,15 +19,7 @@ namespace WarehouseMaster
 
         public static IServiceCollection AddServicesDI(this IServiceCollection services)
         {
-            /*services.AddLogging(builder =>
-            {
-                builder.AddConsole();
-            });*/
             return services
-                .AddLogging(builder =>
-                {
-                    builder.AddConsole(); 
-                })
                 .AddScoped<IStafferService, StafferService>()
                 .AddScoped<ICategoryService, CategoryService>()
                 .AddScoped<ISubCategoryService, SubCategoryService>()

@@ -1,10 +1,5 @@
 ﻿using AutoMapper;
 using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using WarehouseMaster.Core.DTO.SubCategory;
 using WarehouseMaster.Core.Service.Interfaces;
 using WarehouseMaster.Data.Repositories.Interfaces;
@@ -15,19 +10,19 @@ namespace WarehouseMaster.Core.Service.Impl
     public class SubCategoryService : ISubCategoryService
     {
         private readonly IMapper _mapper;
-        //private readonly ILogger _logger;
+        private readonly ILogger<SubCategoryService> _logger;
         private readonly ISubCategoryRepository _subCategoryRepository;
 
-        public SubCategoryService(IMapper mapper, /*ILogger logger,*/ ISubCategoryRepository subCategoryRepository)
+        public SubCategoryService(IMapper mapper, ILogger<SubCategoryService> logger, ISubCategoryRepository subCategoryRepository)
         {
             _mapper = mapper;
-            //_logger = logger;
+            _logger = logger;
             _subCategoryRepository = subCategoryRepository;
         }
 
         public async Task<int> CreateSubCategoryAsync(SubCategoryRequest request)
         {
-            //_logger.LogInformation($"Обращение к методу создания подкатегории для объекта: {request}");
+            _logger.LogInformation($"Обращение к методу создания подкатегории для объекта: {request}");
             var subcategory = _mapper.Map<SubCategory>(request);
             return await _subCategoryRepository.CreateAsync(subcategory);
         }
