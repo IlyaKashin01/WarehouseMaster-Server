@@ -7,6 +7,7 @@ using WarehouseMaster.Data.Repositories.Interfaces;
 using WarehouseMaster.Domain.Entities;
 using SixLabors.ImageSharp;
 using SixLabors.ImageSharp.Formats.Png;
+using WarehouseMaster.Common.OperationResult;
 
 namespace WarehouseMaster.Core.Service.Impl
 {
@@ -15,49 +16,76 @@ namespace WarehouseMaster.Core.Service.Impl
         private readonly IMapper _mapper;
         private readonly ILogger<ProductService> _logger;
         private readonly IProductRepository _productRepository;
+        private readonly ICategoryRepository _categoryRepository;
+        private readonly ISubCategoryRepository _subCategoryRepository;
+        private readonly IStafferRepository _stafferRepository;
 
-        public ProductService(IMapper mapper, IProductRepository productRepository, ILogger<ProductService> logger)
+        public ProductService(IMapper mapper, IProductRepository productRepository, ILogger<ProductService> logger, ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IStafferRepository stafferRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository;
             _logger = logger;
+            _categoryRepository = categoryRepository;
+            _subCategoryRepository = subCategoryRepository;
+            _stafferRepository = stafferRepository;
         }
 
-        public async Task<int> CreateProductAsync(ProductRequest request)
+        public async Task<OperationResult<int>> CreateProductAsync(ProductRequest request)
         {
-            _logger.LogInformation($"Обращение к методу создания продукта для объекта: {request}");
+            _logger.LogInformation($"Обращение к методу создания продукта");
             var product = _mapper.Map<Product>(request);
-            product.QRCode = GenerateQrCode(product); 
-            return await _productRepository.CreateAsync(product);
+            var category = await _categoryRepository.GetByNameAsync(request.NameCategory);
+            var staffer = await _stafferRepository.GetByIdAsync(product.StafferId);
+            if (category != null && staffer != null)
+            {
+                product.Category = category;
+                product.Staffer = staffer;
+            }
+            else {
+                _logger.LogError("Попытка добавления товара без указания категории или сотрудника");
+                return OperationResult<int>.Fail(OperationCode.ValidationError, "для добавления продукта необходимо указать категорию и сотрудника");
+            }
+            if (request.NameSubCategory != null)
+            {
+                var subCategory = await _subCategoryRepository.GetByNameAsync(request.NameSubCategory);
+                if (subCategory != null)
+                    product.Subcategory = subCategory;
+            }
+            product.QRCode = GenerateQrCode(product);
+            var response = await _productRepository.CreateAsync(product);
+            return new OperationResult<int>(response);
         }
 
-        public async Task<bool> DeleteProductAsync(int id)
+        public async Task<OperationResult<bool>> DeleteProductAsync(int id)
         {
-            _logger.LogInformation($"Обращение к методу удаления продукта с id: {id}");
-            return await _productRepository.DeleteAsync(id);
+            _logger.LogInformation($"Обращение к методу удаления продукта");
+            var reponse = await _productRepository.DeleteAsync(id);
+            return new OperationResult<bool>(reponse);
         }
 
-        public async Task<ProductResponse> GetProductByIdAsync(int id)
+        public async Task<OperationResult<ProductResponse>> GetProductByIdAsync(int id)
         {
-            _logger.LogInformation($"Обращение к методу получения продукта по id: {id}");
+            _logger.LogInformation($"Обращение к методу получения продукта");
             var response = await _productRepository.GetByIdAsync(id);
-            return _mapper.Map<ProductResponse>(response);
+            return new OperationResult<ProductResponse>(_mapper.Map<ProductResponse>(response));
         }
 
-        public async Task<bool> IsExistProductAsync(int id)
+        public async Task<OperationResult<bool>> IsExistProductAsync(int id)
         {
-            _logger.LogInformation($"Обращение к методу проверки существования продукта с id: {id}");
-            return await _productRepository.IsExistAsync(id);
+            _logger.LogInformation($"Обращение к методу проверки существования продукта");
+            var reponse = await _productRepository.IsExistAsync(id);
+            return new OperationResult<bool>(reponse);
         }
 
         public string GenerateQrCode(Product product)
         {
             var content = $"Name: {product.Name}\n" +
                 $"Description: {product.Description}\n" +
-                $"Category: {product.CategoryId}\n" +
-                $"Subcategory: {product.SubcategoryId}\n" +
+                $"Category: {product.Category.Name}\n" +
+                $"Subcategory: {product.Subcategory.Name}\n" +
                 $"Quantity: {product.Count}\n" +
-                $"Cost: {product.Cost}";
+                $"Cost: {product.Cost}\n" +
+                $"Accepted by an employee: {product.Staffer.AccountId}";
             
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q);

@@ -14,6 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\WarehouseMaster.Common\WarehouseMaster.Common.csproj" />
     <ProjectReference Include="..\WarehouseMaster.Data\WarehouseMaster.Data.csproj" />
   </ItemGroup>
 

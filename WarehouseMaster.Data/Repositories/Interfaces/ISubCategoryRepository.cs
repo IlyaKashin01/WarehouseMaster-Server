@@ -9,5 +9,6 @@ namespace WarehouseMaster.Data.Repositories.Interfaces
 {
     public interface ISubCategoryRepository: IBaseRepository<SubCategory>
     {
+        Task<SubCategory?> GetByNameAsync(string name);
     }
 }

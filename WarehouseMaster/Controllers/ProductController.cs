@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WarehouseMaster.Common.OperationResult;
 using WarehouseMaster.Core.DTO.Product;
 using WarehouseMaster.Core.Service.Interfaces;
 
@@ -26,14 +27,14 @@ namespace WarehouseMaster.Controllers
 
         // GET api/<ProductController>/5
         [HttpGet("{id}")]
-        public async Task<ProductResponse> Get(int id)
+        public async Task<OperationResult<ProductResponse>> Get(int id)
         {
             return await _productService.GetProductByIdAsync(id);
         }
 
         // POST api/<ProductController>
         [HttpPost]
-        public async Task<int> Post(ProductRequest request)
+        public async Task<OperationResult<int>> Post(ProductRequest request)
         {
             return await _productService.CreateProductAsync(request);
         }
@@ -47,7 +48,7 @@ namespace WarehouseMaster.Controllers
 
         // DELETE api/<ProductController>/5
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(int id)
+        public async Task<OperationResult<bool>> Delete(int id)
         {
             return await _productService.DeleteProductAsync(id);
         }

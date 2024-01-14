@@ -12,7 +12,7 @@ namespace WarehouseMaster.Core.DTO.SubCategory
         [Required]
         public string Name { get; set; } = string.Empty;
         [Required]
-        public int CategoryId { get; set; }
+        public string NameCategory { get; set; } = string.Empty;
         [Required]
         public int StafferId { get; set; }
     }

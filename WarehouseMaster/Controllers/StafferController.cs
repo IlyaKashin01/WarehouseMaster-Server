@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using WarehouseMaster.Common.OperationResult;
 using WarehouseMaster.Core.DTO.Staffer;
 using WarehouseMaster.Core.Service.Interfaces;
 
@@ -17,35 +18,35 @@ namespace WarehouseMaster.Controllers
 
         // GET: api/<StafferController>
         [HttpGet]
-        public Task<IEnumerable<StafferResponse>> Get()
+        public Task<OperationResult<IEnumerable<StafferResponse>>> Get()
         {
             throw new NotImplementedException();
         }
 
         // GET api/<StafferController>/5
         [HttpGet("{id}")]
-        public async Task<StafferResponse> Get(int id)
+        public async Task<OperationResult<StafferResponse>> Get(int id)
         {
             return await _stafferService.GetStafferByIdAsync(id);
         }
 
         // POST api/<StafferController>
         [HttpPost]
-        public async Task<int> Post(StafferRequest request)
+        public async Task<OperationResult<int>> Post(StafferRequest request)
         {
             return await _stafferService.CreateStafferAsync(request);
         }
 
         // PUT api/<StafferController>/5
         [HttpPut("{id}")]
-        public Task<bool> Put(StafferRequest request)
+        public Task<OperationResult<bool>> Put(StafferRequest request)
         {
             throw new NotImplementedException();
         }
 
         // DELETE api/<StafferController>/5
         [HttpDelete("{id}")]
-        public async Task<bool> Delete(int id)
+        public async Task<OperationResult<bool>> Delete(int id)
         {
             return await _stafferService.DeleteStafferAsync(id);
         }
