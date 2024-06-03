@@ -8,6 +8,7 @@ using WarehouseMaster.Core.DTO.Category;
 using WarehouseMaster.Core.DTO.Product;
 using WarehouseMaster.Core.DTO.Staffer;
 using WarehouseMaster.Core.DTO.SubCategory;
+using WarehouseMaster.Core.DTO.Warehouse;
 using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Core.Mappings
@@ -19,6 +20,8 @@ namespace WarehouseMaster.Core.Mappings
             CreateMap<StafferRequest, Staffer>();
             CreateMap<Staffer, StafferResponse>();
 
+            CreateMap<StafferRequest, Person>();
+
             CreateMap<CategoryRequest, Category>();
             CreateMap<Category, CategoryResponse>();
 
@@ -27,6 +30,9 @@ namespace WarehouseMaster.Core.Mappings
 
             CreateMap<ProductRequest, Product>();
             CreateMap<Product, ProductResponse>();
+
+            CreateMap<WarehouseRequest, Warehouse>();
+            CreateMap<Warehouse, WarehouseResponse>();
         }
     }
 }

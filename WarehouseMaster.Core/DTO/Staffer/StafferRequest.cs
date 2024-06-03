@@ -10,13 +10,22 @@ namespace WarehouseMaster.Core.DTO.Staffer
     public class StafferRequest
     {
         [Required]
-        public int AccountId { get; set; }
+        public string FirstName { get; set; } = string.Empty;
+        [Required]
+        public string LastName { get; set; } = string.Empty;
+        [Required]
+        public string MiddleName { get; set; } = string.Empty;
+        [Required]
+        public string Email { get; set; } = string.Empty;
+        [Required]
+        public DateTime Birthday { get; set; }
+        [Required]
+        public string Role { get; set; } = string.Empty;
         [Required]
         public string Post { get; set; } = string.Empty;
         [Required]
-        public int WorkExperience { get; set; }
-        public int AccessLevel { get; set; }
-        [Required]
         public decimal Salary { get; set; }
+        [Required]
+        public int WarehouseId { get; set; }
     }
 }

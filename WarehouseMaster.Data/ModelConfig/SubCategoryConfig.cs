@@ -18,6 +18,9 @@ namespace WarehouseMaster.Data.ModelConfig
             builder.Property(x => x.Name).HasColumnName("name").IsRequired();
             builder.Property(x => x.StafferId).HasColumnName("staffer_id").IsRequired();
             builder.Property(x => x.CategoryId).HasColumnName("category_id").IsRequired();
+            builder.Property(x => x.CreatedDate)
+                .HasColumnName("created_date")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

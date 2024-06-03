@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WarehouseMaster.Data;
@@ -11,9 +12,11 @@ using WarehouseMaster.Data;
 namespace WarehouseMaster.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240602114459_init4")]
+    partial class init4
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -416,15 +419,9 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("updated_date");
 
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("integer")
-                        .HasColumnName("warehouse_id");
-
                     b.HasKey("Id");
 
                     b.HasIndex("PersonId");
-
-                    b.HasIndex("WarehouseId");
 
                     b.ToTable("staffer", (string)null);
                 });
@@ -483,56 +480,48 @@ namespace WarehouseMaster.Data.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("address");
+                        .HasColumnType("text");
 
                     b.Property<int>("Capacity")
-                        .HasColumnType("integer")
-                        .HasColumnName("capacity");
+                        .HasColumnType("integer");
 
                     b.Property<int>("CountEmployees")
-                        .HasColumnType("integer")
-                        .HasColumnName("count_employees");
+                        .HasColumnType("integer");
 
                     b.Property<int>("CountTechnic")
-                        .HasColumnType("integer")
-                        .HasColumnName("count_technic");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("CreatedDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("created_date")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delete_date");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("name");
+                        .HasColumnType("text");
 
                     b.Property<int>("Occupancy")
-                        .HasColumnType("integer")
-                        .HasColumnName("occupancy");
+                        .HasColumnType("integer");
 
                     b.Property<string>("Purpose")
                         .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("purpose");
+                        .HasColumnType("text");
 
                     b.Property<int>("Square")
-                        .HasColumnType("integer")
-                        .HasColumnName("square");
+                        .HasColumnType("integer");
+
+                    b.Property<int>("StafferId")
+                        .HasColumnType("integer");
 
                     b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.ToTable("warehouse", (string)null);
+                    b.HasIndex("StafferId");
+
+                    b.ToTable("Warehouses");
                 });
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.Category", b =>
@@ -641,15 +630,7 @@ namespace WarehouseMaster.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WarehouseMaster.Domain.Entities.Warehouse", "Warehouse")
-                        .WithMany()
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Person");
-
-                    b.Navigation("Warehouse");
                 });
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.SubCategory", b =>
@@ -667,6 +648,17 @@ namespace WarehouseMaster.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
+
+                    b.Navigation("Staffer");
+                });
+
+            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Warehouse", b =>
+                {
+                    b.HasOne("WarehouseMaster.Domain.Entities.Staffer", "Staffer")
+                        .WithMany()
+                        .HasForeignKey("StafferId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Staffer");
                 });

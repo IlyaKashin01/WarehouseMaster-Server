@@ -7,8 +7,8 @@ using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Data.Repositories.Interfaces
 {
-    public interface IStafferRepository: IBaseRepository<Staffer>
+    public interface IPersonRepository: IBaseRepository<Person>
     {
-        Task<IEnumerable<Staffer>> GetAllAsync();
+        Task<bool> CheckExistPersonByEmailAsync(string email);
     }
 }

@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace WarehouseMaster.Domain.Entities
 {
-    public class BaseEntity
+    public class GroupMessage: BaseEntityMessage
     {
-        public int Id { get; set; }
-        public DateTime? UpdatedDate { get; set; }
-        public DateTime? DeleteDate { get; set; }
+        public GroupChatRoom Group { get; set; } = new GroupChatRoom();
+        public int GroupId { get; set; }
     }
 }

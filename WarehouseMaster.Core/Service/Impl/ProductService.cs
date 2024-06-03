@@ -85,7 +85,7 @@ namespace WarehouseMaster.Core.Service.Impl
                 $"Subcategory: {product.Subcategory.Name}\n" +
                 $"Quantity: {product.Count}\n" +
                 $"Cost: {product.Cost}\n" +
-                $"Accepted by an employee: {product.Staffer.AccountId}";
+                $"Accepted by an employee: {product.Staffer.PersonId}";
             
             QRCodeGenerator qrGenerator = new QRCodeGenerator();
             QRCodeData qrCodeData = qrGenerator.CreateQrCode(content, QRCodeGenerator.ECCLevel.Q);

@@ -18,6 +18,9 @@ namespace WarehouseMaster.Domain.Entities
         public int Count { get; set; }
         public Staffer Staffer { get; set; } = new Staffer();
         public int StafferId { get; set; }
+        public Warehouse Warehouse { get; set; } = new Warehouse();
+        public int WarehouseId { get; set; }
         public string QRCode { get; set; } = string.Empty;
+        public DateTime CreatedDate { get; set; }
     }
 }

@@ -11,12 +11,18 @@ namespace WarehouseMaster.Data.ModelConfig
         {
             base.Configure(builder);
             builder.ToTable("staffer");
-            builder.Property(x => x.AccountId).HasColumnName("account_id").IsRequired();
+            builder.Property(x => x.PersonId).HasColumnName("person_id").IsRequired();
+            builder.Property(x => x.FirstName).HasColumnName("first_name").IsRequired();
+            builder.Property(x => x.LastName).HasColumnName("last_name").IsRequired();
+            builder.Property(x => x.MiddleName).HasColumnName("middle_name").IsRequired();
+            builder.Property(x => x.Birthday).HasColumnName("birthday").IsRequired();
             builder.Property(x => x.Post).HasColumnName("post").IsRequired();
-            builder.Property(x => x.WorkExperience).HasColumnName("work_experience");
-            builder.Property(x => x.AccessLevel).HasColumnName("access_level").IsRequired();
             builder.Property(x => x.Salary).HasColumnName("salary").IsRequired();
             builder.Property(x => x.QRCode).HasColumnName("qr_code");
+            builder.Property(x => x.WarehouseId).HasColumnName("warehouse_id");
+            builder.Property(x => x.AddedDate)
+                .HasColumnName("added_date")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

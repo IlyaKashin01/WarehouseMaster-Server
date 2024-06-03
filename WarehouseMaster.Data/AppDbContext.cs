@@ -11,6 +11,12 @@ namespace WarehouseMaster.Data
         public DbSet<Category> Categories { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Staffer> Staffers { get; set; }
+        public DbSet<Person> Users { get; set; }
+        public DbSet<GroupChatRoom> Groups { get; set; }
+        public DbSet<PersonalMessage> PersonalMessages { get; set; }
+        public DbSet<GroupMessage> GroupMessages { get; set; }
+        public DbSet<GroupMember> GroupMembers { get; set; }
+        public DbSet<Warehouse> Warehouses { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.AddModelConfiguration();

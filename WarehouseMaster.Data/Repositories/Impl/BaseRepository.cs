@@ -30,7 +30,7 @@ namespace WarehouseMaster.Data.Repositories.Impl
 
             if (entity == null) return false;
 
-            entity.Deleted = DateTime.UtcNow;
+            entity.DeleteDate = DateTime.UtcNow;
 
             await _context.SaveChangesAsync();
             return true;

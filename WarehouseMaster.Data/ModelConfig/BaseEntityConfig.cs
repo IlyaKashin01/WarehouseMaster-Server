@@ -4,17 +4,14 @@ using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Data.ModelConfig
 {
-    internal class BaseEntityConfig<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
+    public class BaseEntityConfig<TEntity> : IEntityTypeConfiguration<TEntity> where TEntity : BaseEntity
     {
         public virtual void Configure(EntityTypeBuilder<TEntity> builder)
         {
             builder.HasKey(e => e.Id);
-            builder.Property(x => x.Created)
-                .HasColumnName("created_date")
-                .HasDefaultValueSql("CURRENT_TIMESTAMP");
-            builder.Property(x => x.Updated)
+            builder.Property(x => x.UpdatedDate)
                 .HasColumnName("updated_date");
-            builder.Property(x => x.Deleted)
+            builder.Property(x => x.DeleteDate)
                 .HasColumnName("delete_date");
         }
     }

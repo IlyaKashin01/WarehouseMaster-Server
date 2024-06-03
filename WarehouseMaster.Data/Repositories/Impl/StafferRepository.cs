@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,10 @@ namespace WarehouseMaster.Data.Repositories.Impl
     public class StafferRepository: BaseRepository<Staffer>, IStafferRepository
     {
         public StafferRepository(AppDbContext appDbContext) : base(appDbContext) { }
+
+        public async Task<IEnumerable<Staffer>> GetAllAsync()
+        {
+           return await _context.Staffers.ToListAsync();
+        }
     }
 }

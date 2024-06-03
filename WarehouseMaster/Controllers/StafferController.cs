@@ -18,9 +18,9 @@ namespace WarehouseMaster.Controllers
 
         // GET: api/<StafferController>
         [HttpGet]
-        public Task<OperationResult<IEnumerable<StafferResponse>>> Get()
+        public async Task<OperationResult<IEnumerable<StafferResponse>>> Get()
         {
-            throw new NotImplementedException();
+            return await _stafferService.GetAllStaffersAsync();
         }
 
         // GET api/<StafferController>/5

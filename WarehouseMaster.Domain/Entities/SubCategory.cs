@@ -13,5 +13,6 @@ namespace WarehouseMaster.Domain.Entities
         public int CategoryId { get; set; }
         public Staffer Staffer { get; set; } = new Staffer();
         public int StafferId {  get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }

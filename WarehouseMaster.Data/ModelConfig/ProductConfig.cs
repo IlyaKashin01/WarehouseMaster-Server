@@ -23,6 +23,9 @@ namespace WarehouseMaster.Data.ModelConfig
             builder.Property(p => p.Count).HasColumnName("count").IsRequired();
             builder.Property(p => p.StafferId).HasColumnName("staffer_id").IsRequired();
             builder.Property(p => p.QRCode).HasColumnName("qr_code").IsRequired();
+            builder.Property(x => x.CreatedDate)
+                .HasColumnName("created_date")
+                .HasDefaultValueSql("CURRENT_TIMESTAMP");
         }
     }
 }

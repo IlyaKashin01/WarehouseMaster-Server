@@ -11,6 +11,7 @@ namespace WarehouseMaster.Domain.Entities
         public string Name { get; set; } = string.Empty;
         public List<SubCategory> SubCategories { get; set; } = new List<SubCategory>();
         public Staffer Staffer { get; set; } = new Staffer();
+        public DateTime CreatedDate { get; set; }
         public int StafferId { get; set; }
     }
 }

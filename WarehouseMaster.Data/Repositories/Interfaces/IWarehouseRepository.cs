@@ -7,8 +7,9 @@ using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Data.Repositories.Interfaces
 {
-    public interface IStafferRepository: IBaseRepository<Staffer>
+    public interface IWarehouseRepository: IBaseRepository<Warehouse>
     {
-        Task<IEnumerable<Staffer>> GetAllAsync();
+        Task<Warehouse?> GetWarehouseByNameAsync(string name);
+        Task<IEnumerable<Warehouse>> GetAllWarehousesAsync();
     }
 }
