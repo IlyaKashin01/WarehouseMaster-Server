@@ -18,39 +18,40 @@ namespace WarehouseMaster.Controllers
             _productService = productService;
         }
 
-        // GET: api/<ProductController>
-        [HttpGet]
+        [HttpGet("get")]
         public Task<IEnumerable<ProductResponse>> Get()
         {
             throw new NotImplementedException();
         }
 
-        // GET api/<ProductController>/5
-        [HttpGet("{id}")]
-        public async Task<OperationResult<ProductResponse>> Get(int id)
+        [HttpGet("all")]
+        public async Task<ActionResult<OperationResult<ProductResponse>>> Get(int id)
         {
-            return await _productService.GetProductByIdAsync(id);
+            var response = await _productService.GetProductByIdAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
-        // POST api/<ProductController>
-        [HttpPost]
-        public async Task<OperationResult<int>> Post(ProductRequest request)
+        [HttpPost("create")]
+        public async Task<ActionResult<OperationResult<int>>> Post(ProductRequest request)
         {
-            return await _productService.CreateProductAsync(request);
+            var response = await _productService.CreateProductAsync(request);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
-        // PUT api/<ProductController>/5
-        [HttpPut("{id}")]
+        [HttpPut("update")]
         public Task<bool> Put(ProductRequest request)
         {
             throw new NotImplementedException();
         }
 
-        // DELETE api/<ProductController>/5
-        [HttpDelete("{id}")]
-        public async Task<OperationResult<bool>> Delete(int id)
+        [HttpDelete("delete")]
+        public async Task<ActionResult<OperationResult<bool>>> Delete(int id)
         {
-            return await _productService.DeleteProductAsync(id);
+            var response = await _productService.DeleteProductAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
     }
 }

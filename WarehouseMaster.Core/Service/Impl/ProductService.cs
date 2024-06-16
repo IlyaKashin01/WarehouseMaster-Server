@@ -18,9 +18,10 @@ namespace WarehouseMaster.Core.Service.Impl
         private readonly IProductRepository _productRepository;
         private readonly ICategoryRepository _categoryRepository;
         private readonly ISubCategoryRepository _subCategoryRepository;
+        private readonly IWarehouseRepository _warehouseRepository;
         private readonly IStafferRepository _stafferRepository;
 
-        public ProductService(IMapper mapper, IProductRepository productRepository, ILogger<ProductService> logger, ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IStafferRepository stafferRepository)
+        public ProductService(IMapper mapper, IProductRepository productRepository, ILogger<ProductService> logger, ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IStafferRepository stafferRepository, IWarehouseRepository warehouseRepository)
         {
             _mapper = mapper;
             _productRepository = productRepository;
@@ -28,6 +29,7 @@ namespace WarehouseMaster.Core.Service.Impl
             _categoryRepository = categoryRepository;
             _subCategoryRepository = subCategoryRepository;
             _stafferRepository = stafferRepository;
+            _warehouseRepository = warehouseRepository;
         }
 
         public async Task<OperationResult<int>> CreateProductAsync(ProductRequest request)
@@ -36,10 +38,12 @@ namespace WarehouseMaster.Core.Service.Impl
             var product = _mapper.Map<Product>(request);
             var category = await _categoryRepository.GetByNameAsync(request.NameCategory);
             var staffer = await _stafferRepository.GetByIdAsync(product.StafferId);
-            if (category != null && staffer != null)
+            var warehouse = await _warehouseRepository.GetByIdAsync(request.WarehouseId);
+            if (category != null && staffer != null && warehouse != null)
             {
                 product.Category = category;
                 product.Staffer = staffer;
+                product.Warehouse = warehouse;
             }
             else {
                 _logger.LogError("Попытка добавления товара без указания категории или сотрудника");

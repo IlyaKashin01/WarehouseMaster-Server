@@ -16,39 +16,42 @@ namespace WarehouseMaster.Controllers
             _stafferService = stafferService;
         }
 
-        // GET: api/<StafferController>
-        [HttpGet]
-        public async Task<OperationResult<IEnumerable<StafferResponse>>> Get()
+        [HttpGet("all")]
+        public async Task<ActionResult<OperationResult<IEnumerable<StafferResponse>>>> Get()
         {
-            return await _stafferService.GetAllStaffersAsync();
+            var response =  await _stafferService.GetAllStaffersAsync();
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
-        // GET api/<StafferController>/5
-        [HttpGet("{id}")]
-        public async Task<OperationResult<StafferResponse>> Get(int id)
+        [HttpGet("get")]
+        public async Task<ActionResult<OperationResult<StafferResponse>>> Get(int id)
         {
-            return await _stafferService.GetStafferByIdAsync(id);
+            var response = await _stafferService.GetStafferByIdAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
-        // POST api/<StafferController>
-        [HttpPost]
-        public async Task<OperationResult<int>> Post(StafferRequest request)
+        [HttpPost("create")]
+        public async Task<ActionResult<OperationResult<int>>> Post(StafferRequest request)
         {
-            return await _stafferService.CreateStafferAsync(request);
+            var response = await _stafferService.CreateStafferAsync(request);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
-        // PUT api/<StafferController>/5
         [HttpPut("{id}")]
         public Task<OperationResult<bool>> Put(StafferRequest request)
         {
             throw new NotImplementedException();
         }
 
-        // DELETE api/<StafferController>/5
-        [HttpDelete("{id}")]
-        public async Task<OperationResult<bool>> Delete(int id)
+        [HttpDelete("delete")]
+        public async Task<ActionResult<OperationResult<bool>>> Delete(int id)
         {
-            return await _stafferService.DeleteStafferAsync(id);
+            var response =  await _stafferService.DeleteStafferAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
     }
 }

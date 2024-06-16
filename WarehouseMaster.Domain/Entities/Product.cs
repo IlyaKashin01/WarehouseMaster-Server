@@ -22,5 +22,7 @@ namespace WarehouseMaster.Domain.Entities
         public int WarehouseId { get; set; }
         public string QRCode { get; set; } = string.Empty;
         public DateTime CreatedDate { get; set; }
+        public Provider Provider { get; set; } = new Provider();
+        public int ProviderId { get; set; }
     }
 }

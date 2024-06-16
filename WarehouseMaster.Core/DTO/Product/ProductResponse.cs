@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WarehouseMaster.Core.DTO.Provider;
 using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Core.DTO.Product
@@ -18,5 +19,6 @@ namespace WarehouseMaster.Core.DTO.Product
         public int Count { get; set; }
         public int StafferId { get; set; }
         public string QRCode { get; set; } = string.Empty;
+        public ProviderResponse ProviderResponse { get; set; } = new ProviderResponse();
     }
 }

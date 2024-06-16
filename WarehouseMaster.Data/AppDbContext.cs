@@ -17,6 +17,9 @@ namespace WarehouseMaster.Data
         public DbSet<GroupMessage> GroupMessages { get; set; }
         public DbSet<GroupMember> GroupMembers { get; set; }
         public DbSet<Warehouse> Warehouses { get; set; }
+        public DbSet<Entrance> Entrances { get; set; }
+        public DbSet<Shipment> Shipments { get; set; }
+        public DbSet<Provider> Providers { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.AddModelConfiguration();

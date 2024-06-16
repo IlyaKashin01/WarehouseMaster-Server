@@ -18,6 +18,9 @@ namespace WarehouseMaster.Data.Extentions
             modelBuilder.ApplyConfiguration(new GroupMemberConfig());
             modelBuilder.ApplyConfiguration(new PersonConfig());
             modelBuilder.ApplyConfiguration(new WarehouseConfig());
+            modelBuilder.ApplyConfiguration(new ShipmentConfig());
+            modelBuilder.ApplyConfiguration(new EntranceConfig());
+            modelBuilder.ApplyConfiguration(new ProviderConfig());
 
             return modelBuilder;
         }
@@ -34,6 +37,9 @@ namespace WarehouseMaster.Data.Extentions
             modelBuilder.Entity<GroupMember>().HasQueryFilter(e => e.DeleteDate == null);
             modelBuilder.Entity<Person>().HasQueryFilter(e => e.DeleteDate == null);
             modelBuilder.Entity<Warehouse>().HasQueryFilter(e => e.DeleteDate == null);
+            modelBuilder.Entity<Entrance>().HasQueryFilter(e => e.DeleteDate == null);
+            modelBuilder.Entity<Shipment>().HasQueryFilter(e => e.DeleteDate == null);
+            modelBuilder.Entity<Provider>().HasQueryFilter(e => e.DeleteDate == null);
 
             return modelBuilder;
         }

@@ -1,0 +1,14 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using WarehouseMaster.Domain.Entities;
+
+namespace WarehouseMaster.Data.Repositories.Interfaces
+{
+    public interface IShipmentRepository: IBaseRepository<Shipment>
+    {
+        Task<IEnumerable<Shipment>> GetAllShipmentAsync(int warehouseId);
+    }
+}

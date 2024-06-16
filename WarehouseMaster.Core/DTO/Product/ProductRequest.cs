@@ -22,5 +22,7 @@ namespace WarehouseMaster.Core.DTO.Product
         public int Count { get; set; }
         [Required]
         public int StafferId { get; set; }
+        [Required]
+        public int WarehouseId { get; set; }
     }
 }

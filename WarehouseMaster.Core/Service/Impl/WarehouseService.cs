@@ -12,16 +12,11 @@ using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Core.Service.Impl
 {
-    public class WarehouseService : IWarehouseService
+    public class WarehouseService(IWarehouseRepository warehouseRepository, IMapper mapper) : IWarehouseService
     {
-        private readonly IWarehouseRepository _warehouseRepository;
-        private readonly IMapper _mapper;
+        private readonly IWarehouseRepository _warehouseRepository = warehouseRepository;
+        private readonly IMapper _mapper = mapper;
 
-        public WarehouseService(IWarehouseRepository warehouseRepository, IMapper mapper)
-        {
-            _warehouseRepository = warehouseRepository;
-            _mapper = mapper;
-        }
 
         public async Task<OperationResult<int>> CreateWarehouseAsync(WarehouseRequest request)
         {

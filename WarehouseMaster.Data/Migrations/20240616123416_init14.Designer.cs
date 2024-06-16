@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WarehouseMaster.Data;
@@ -11,9 +12,11 @@ using WarehouseMaster.Data;
 namespace WarehouseMaster.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240616123416_init14")]
+    partial class init14
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -83,10 +86,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
 
                     b.Property<int>("StafferId")
                         .HasColumnType("integer")
@@ -403,10 +402,6 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<int>("ProviderId")
-                        .HasColumnType("integer")
-                        .HasColumnName("provider_id");
-
                     b.Property<string>("QRCode")
                         .IsRequired()
                         .HasColumnType("text")
@@ -431,8 +426,6 @@ namespace WarehouseMaster.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ProviderId");
-
                     b.HasIndex("StafferId");
 
                     b.HasIndex("SubcategoryId");
@@ -440,47 +433,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.HasIndex("WarehouseId");
 
                     b.ToTable("product", (string)null);
-                });
-
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Provider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("company");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delete_date");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("full_name");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("provider", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.Shipment", b =>
@@ -502,10 +454,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("integer")
                         .HasColumnName("product_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
 
                     b.Property<DateTime>("ShipmentDate")
                         .HasColumnType("timestamp with time zone")
@@ -814,12 +762,6 @@ namespace WarehouseMaster.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WarehouseMaster.Domain.Entities.Provider", "Provider")
-                        .WithMany()
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WarehouseMaster.Domain.Entities.Staffer", "Staffer")
                         .WithMany("Products")
                         .HasForeignKey("StafferId")
@@ -839,8 +781,6 @@ namespace WarehouseMaster.Data.Migrations
                         .IsRequired();
 
                     b.Navigation("Category");
-
-                    b.Navigation("Provider");
 
                     b.Navigation("Staffer");
 

@@ -17,6 +17,8 @@ namespace WarehouseMaster.Domain.Entities
         public int Capacity { get; set; }
         public int Occupancy { get; set; }
         public List<Product> Products { get; set; } = new List<Product>();
+        public List<Shipment> Shipments { get; set; } = new List<Shipment>();
+        public List<Entrance> Entrances { get; set; } = new List<Entrance>();
         public DateTime CreatedDate { get; set; }
     }
 }

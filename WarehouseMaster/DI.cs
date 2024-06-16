@@ -16,6 +16,9 @@ namespace WarehouseMaster
                 .AddScoped<ISubCategoryRepository, SubCategoryRepository>()
                 .AddScoped<IPersonRepository, PersonRepository>()
                 .AddScoped<IWarehouseRepository, WarehouseRepository>()
+                .AddScoped<IEntranceRepository, EntranceRepository>()
+                .AddScoped<IShipmentRepository, ShipmentRepository>()
+                .AddScoped<IProviderRepository, ProviderRepository>()
                 .AddScoped<IProductRepository, ProductRepository>();
         }
 
@@ -26,6 +29,9 @@ namespace WarehouseMaster
                 .AddScoped<ICategoryService, CategoryService>()
                 .AddScoped<ISubCategoryService, SubCategoryService>()
                 .AddScoped<IWarehouseService, WarehouseService>()
+                .AddScoped<IEntranceService, EntranceService>()
+                .AddScoped<IShipmentService, ShipmentService>()
+                .AddScoped<IProviderService, ProviderService>()
                 .AddScoped<IProductService, ProductService>();
         }
     }

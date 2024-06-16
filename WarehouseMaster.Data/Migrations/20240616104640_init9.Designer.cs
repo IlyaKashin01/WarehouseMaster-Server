@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WarehouseMaster.Data;
@@ -11,9 +12,11 @@ using WarehouseMaster.Data;
 namespace WarehouseMaster.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240616104640_init9")]
+    partial class init9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,61 +61,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.HasIndex("StafferId");
 
                     b.ToTable("category", (string)null);
-                });
-
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Entrance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AcceptDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("accept_date");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delete_date");
-
-                    b.Property<DateTime>("EntranceDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("entrance_date");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.Property<int>("StafferId")
-                        .HasColumnType("integer")
-                        .HasColumnName("staffer_id");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean")
-                        .HasColumnName("status");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
-
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("integer")
-                        .HasColumnName("warehouse_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("StafferId");
-
-                    b.HasIndex("WarehouseId");
-
-                    b.ToTable("entrance", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.GroupChatRoom", b =>
@@ -403,10 +351,6 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("name");
 
-                    b.Property<int>("ProviderId")
-                        .HasColumnType("integer")
-                        .HasColumnName("provider_id");
-
                     b.Property<string>("QRCode")
                         .IsRequired()
                         .HasColumnType("text")
@@ -431,8 +375,6 @@ namespace WarehouseMaster.Data.Migrations
 
                     b.HasIndex("CategoryId");
 
-                    b.HasIndex("ProviderId");
-
                     b.HasIndex("StafferId");
 
                     b.HasIndex("SubcategoryId");
@@ -440,102 +382,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.HasIndex("WarehouseId");
 
                     b.ToTable("product", (string)null);
-                });
-
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Provider", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Company")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("company");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delete_date");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("email");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("full_name");
-
-                    b.Property<string>("Phone")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("phone");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("provider", (string)null);
-                });
-
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Shipment", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("AcceptDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("accept_date");
-
-                    b.Property<DateTime?>("DeleteDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("delete_date");
-
-                    b.Property<int>("ProductId")
-                        .HasColumnType("integer")
-                        .HasColumnName("product_id");
-
-                    b.Property<int>("Quantity")
-                        .HasColumnType("integer")
-                        .HasColumnName("quantity");
-
-                    b.Property<DateTime>("ShipmentDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("shipment_date");
-
-                    b.Property<int>("StafferId")
-                        .HasColumnType("integer")
-                        .HasColumnName("staffer_id");
-
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean")
-                        .HasColumnName("status");
-
-                    b.Property<DateTime?>("UpdatedDate")
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("updated_date");
-
-                    b.Property<int>("WarehouseId")
-                        .HasColumnType("integer")
-                        .HasColumnName("warehouse_id");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("StafferId");
-
-                    b.HasIndex("WarehouseId");
-
-                    b.ToTable("shipment", (string)null);
                 });
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.Staffer", b =>
@@ -727,33 +573,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.Navigation("Staffer");
                 });
 
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Entrance", b =>
-                {
-                    b.HasOne("WarehouseMaster.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WarehouseMaster.Domain.Entities.Staffer", "Staffer")
-                        .WithMany()
-                        .HasForeignKey("StafferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WarehouseMaster.Domain.Entities.Warehouse", "Warehouse")
-                        .WithMany("Entrances")
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Staffer");
-
-                    b.Navigation("Warehouse");
-                });
-
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.GroupChatRoom", b =>
                 {
                     b.HasOne("WarehouseMaster.Domain.Entities.Person", "Person")
@@ -814,12 +633,6 @@ namespace WarehouseMaster.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("WarehouseMaster.Domain.Entities.Provider", "Provider")
-                        .WithMany()
-                        .HasForeignKey("ProviderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("WarehouseMaster.Domain.Entities.Staffer", "Staffer")
                         .WithMany("Products")
                         .HasForeignKey("StafferId")
@@ -840,38 +653,9 @@ namespace WarehouseMaster.Data.Migrations
 
                     b.Navigation("Category");
 
-                    b.Navigation("Provider");
-
                     b.Navigation("Staffer");
 
                     b.Navigation("Subcategory");
-
-                    b.Navigation("Warehouse");
-                });
-
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Shipment", b =>
-                {
-                    b.HasOne("WarehouseMaster.Domain.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WarehouseMaster.Domain.Entities.Staffer", "Staffer")
-                        .WithMany()
-                        .HasForeignKey("StafferId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("WarehouseMaster.Domain.Entities.Warehouse", "Warehouse")
-                        .WithMany("Shipments")
-                        .HasForeignKey("WarehouseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Staffer");
 
                     b.Navigation("Warehouse");
                 });
@@ -938,11 +722,7 @@ namespace WarehouseMaster.Data.Migrations
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.Warehouse", b =>
                 {
-                    b.Navigation("Entrances");
-
                     b.Navigation("Products");
-
-                    b.Navigation("Shipments");
                 });
 #pragma warning restore 612, 618
         }

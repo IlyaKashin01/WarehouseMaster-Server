@@ -17,16 +17,20 @@ namespace WarehouseMaster.Controllers
             _warehouseService = warehouseService;
         }
 
-        [HttpGet]
-        public async Task<OperationResult<IEnumerable<WarehouseResponse>>> Get()
+        [HttpGet("all")]
+        public async Task<ActionResult<OperationResult<IEnumerable<WarehouseResponse>>>> Get()
         {
-            return await _warehouseService.GetAllWarehousesAsync();
+            var response =  await _warehouseService.GetAllWarehousesAsync();
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
-        [HttpPost]
-        public async Task<OperationResult<int>> Post(WarehouseRequest request)
+        [HttpPost("create")]
+        public async Task<ActionResult<OperationResult<int>>> Post(WarehouseRequest request)
         {
-            return await _warehouseService.CreateWarehouseAsync(request);
+            var response =  await _warehouseService.CreateWarehouseAsync(request);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
         [HttpPut("{id}")]
@@ -35,10 +39,12 @@ namespace WarehouseMaster.Controllers
             throw new NotImplementedException();
         }
 
-        [HttpDelete("{id}")]
-        public async Task<OperationResult<bool>> Delete(int id)
+        [HttpDelete("delete")]
+        public async Task<ActionResult<OperationResult<bool>>> Delete(int id)
         {
-            return await _warehouseService.DeleteWarehouseAsync(id);
+            var response = await _warehouseService.DeleteWarehouseAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
     }
 }
