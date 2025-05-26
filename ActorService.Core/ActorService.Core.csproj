@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="14.0.0" />
+      <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="8.0.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\AuthService.Data\AuthService.Data.csproj" />
+      <ProjectReference Include="..\ActorService.Data\ActorService.Data.csproj" />
+      <ProjectReference Include="..\WarehouseMaster.Common\WarehouseMaster.Common.csproj" />
+      <ProjectReference Include="..\WarehouseService.Data\WarehouseService.Data.csproj" />
+    </ItemGroup>
+
+</Project>

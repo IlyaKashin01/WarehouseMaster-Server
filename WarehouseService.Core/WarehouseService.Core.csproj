@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net9.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Warehouse.Core</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ActorService.Core\ActorService.Core.csproj" />
+      <ProjectReference Include="..\ActorService.Data\ActorService.Data.csproj" />
+      <ProjectReference Include="..\ProductService.Core\ProductService.Core.csproj" />
+      <ProjectReference Include="..\WarehouseMaster.Common\WarehouseMaster.Common.csproj" />
+      <ProjectReference Include="..\WarehouseService.Data\WarehouseService.Data.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="AutoMapper" Version="14.0.0" />
+    </ItemGroup>
+
+</Project>
