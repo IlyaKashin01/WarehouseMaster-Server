@@ -5,17 +5,14 @@ using System.Text;
 using System.Threading.Tasks;
 using WarehouseMaster.Data.Repositories.Interfaces;
 using WarehouseMaster.Domain.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace WarehouseMaster.Data.Repositories.Impl
 {
-    public class BaseRepository<TEntity> : IBaseRepository<TEntity> where TEntity : BaseEntity
+    public class BaseRepository<TEntity>(AppDbContext appDbContext) : IBaseRepository<TEntity>
+        where TEntity : BaseEntity
     {
-        protected readonly AppDbContext _context;
-
-        public BaseRepository(AppDbContext appDbContext)
-        {
-            _context = appDbContext;
-        }
+        protected readonly AppDbContext _context = appDbContext;
 
         public async Task<int> CreateAsync(TEntity entity)
         {

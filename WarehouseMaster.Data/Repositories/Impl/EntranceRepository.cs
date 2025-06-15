@@ -4,18 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace WarehouseMaster.Data.Repositories.Impl
 {
-    public class EntranceRepository : BaseRepository<Entrance>, IEntranceRepository
+    public class EntranceRepository(AppDbContext appDbContext)
+        : BaseRepository<Entrance>(appDbContext), IEntranceRepository
     {
-        public EntranceRepository(AppDbContext appDbContext) : base(appDbContext)
-        {
-        }
-
         public async Task<IEnumerable<Entrance>> GetAll(int warehouseId)
         {
             return await _context.Entrances
                 .Where(x => x.WarehouseId == warehouseId)
                 .Include(x => x.Staffer)
-                .Include(x => x.Product)
+                .Include(x => x.Products)
                 .ToListAsync();
         }
     }

@@ -13,5 +13,6 @@ namespace WarehouseMaster.Core.Service.Interfaces
         Task<OperationResult<int>> CreateWarehouseAsync (WarehouseRequest request);
         Task<OperationResult<IEnumerable<WarehouseResponse>>> GetAllWarehousesAsync();
         Task<OperationResult<bool>> DeleteWarehouseAsync(int id);
+        Task<OperationResult<WarehouseResponse>> GetWarehouseByIdAsync(int id);
     }
 }

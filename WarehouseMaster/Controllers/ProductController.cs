@@ -9,25 +9,20 @@ namespace WarehouseMaster.Controllers
 {
     [Route("api/product")]
     [ApiController]
-    public class ProductController : ControllerBase
+    public class ProductController(IProductService productService) : ControllerBase
     {
-        private readonly IProductService _productService;
-
-        public ProductController(IProductService productService)
-        {
-            _productService = productService;
-        }
-
         [HttpGet("get")]
-        public Task<IEnumerable<ProductResponse>> Get()
+        public async Task<ActionResult<IEnumerable<ProductResponse>>> Get(int id)
         {
-            throw new NotImplementedException();
+            var response = await productService.GetProductByIdAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
         [HttpGet("all")]
-        public async Task<ActionResult<OperationResult<ProductResponse>>> Get(int id)
+        public async Task<ActionResult<OperationResult<ProductResponse>>> GetAll(int warehouseId)
         {
-            var response = await _productService.GetProductByIdAsync(id);
+            var response = await productService.GetAllProductsByWarehouseAsync(warehouseId);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
@@ -35,7 +30,7 @@ namespace WarehouseMaster.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<OperationResult<int>>> Post(ProductRequest request)
         {
-            var response = await _productService.CreateProductAsync(request);
+            var response = await productService.CreateProductAsync(request);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
@@ -49,7 +44,7 @@ namespace WarehouseMaster.Controllers
         [HttpDelete("delete")]
         public async Task<ActionResult<OperationResult<bool>>> Delete(int id)
         {
-            var response = await _productService.DeleteProductAsync(id);
+            var response = await productService.DeleteProductAsync(id);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }

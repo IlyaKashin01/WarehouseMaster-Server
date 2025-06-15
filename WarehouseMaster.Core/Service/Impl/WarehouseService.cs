@@ -52,5 +52,11 @@ namespace WarehouseMaster.Core.Service.Impl
             var response =  _mapper.Map<IEnumerable<WarehouseResponse>>(warehouses);
             return new OperationResult<IEnumerable<WarehouseResponse>>(response);
         }
+
+        public async Task<OperationResult<WarehouseResponse>> GetWarehouseByIdAsync(int id)
+        {
+            var warehouse = await _warehouseRepository.GetByIdAsync(id);
+            return new OperationResult<WarehouseResponse>(_mapper.Map<WarehouseResponse>(warehouse));
+        }
     }
 }

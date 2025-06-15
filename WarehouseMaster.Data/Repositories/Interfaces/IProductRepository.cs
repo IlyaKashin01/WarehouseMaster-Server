@@ -9,5 +9,8 @@ namespace WarehouseMaster.Data.Repositories.Interfaces
 {
     public interface IProductRepository: IBaseRepository<Product>
     {
+        Task<IEnumerable<Product>> GetAllByWarehouseIdAsync(int warehouseId);
+
+        Task<bool> UpdateAsync(Product product);
     }
 }

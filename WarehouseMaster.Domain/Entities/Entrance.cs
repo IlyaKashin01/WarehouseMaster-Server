@@ -10,8 +10,7 @@ namespace WarehouseMaster.Domain.Entities
     {
         public Warehouse Warehouse { get; set; } = new Warehouse();
         public int WarehouseId { get; set; }
-        public Product Product { get; set; } = new Product();
-        public int ProductId { get; set; }
+        public List<Product> Products { get; set; } = new List<Product>();
         public int Quantity { get; set; }
         public DateTime EntranceDate { get; set; }
         public Staffer Staffer { get; set; } = new Staffer();

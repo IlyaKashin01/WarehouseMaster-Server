@@ -10,8 +10,6 @@ namespace WarehouseMaster.Data.Extentions
         {
             modelBuilder.ApplyConfiguration(new StafferConfig());
             modelBuilder.ApplyConfiguration(new ProductConfig());
-            modelBuilder.ApplyConfiguration(new CategoryConfig());
-            modelBuilder.ApplyConfiguration(new SubCategoryConfig());
             modelBuilder.ApplyConfiguration(new PersonalMessageConfig());
             modelBuilder.ApplyConfiguration(new GroupMessageConfig());
             modelBuilder.ApplyConfiguration(new GroupChatRoomConfig());
@@ -28,8 +26,6 @@ namespace WarehouseMaster.Data.Extentions
         public static ModelBuilder AddDeletedQueryFilters(this ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Staffer>().HasQueryFilter(e => e.DeleteDate == null);
-            modelBuilder.Entity<Category>().HasQueryFilter(e => e.DeleteDate == null);
-            modelBuilder.Entity<SubCategory>().HasQueryFilter(e => e.DeleteDate == null);
             modelBuilder.Entity<Product>().HasQueryFilter(e => e.DeleteDate == null);
             modelBuilder.Entity<PersonalMessage>().HasQueryFilter(e => e.DeleteDate == null);
             modelBuilder.Entity<GroupMessage>().HasQueryFilter(e => e.DeleteDate == null);

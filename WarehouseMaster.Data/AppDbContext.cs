@@ -8,8 +8,6 @@ namespace WarehouseMaster.Data
     {
         #nullable disable
         public DbSet<Product> Products { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<SubCategory> SubCategories { get; set; }
         public DbSet<Staffer> Staffers { get; set; }
         public DbSet<Person> Users { get; set; }
         public DbSet<GroupChatRoom> Groups { get; set; }

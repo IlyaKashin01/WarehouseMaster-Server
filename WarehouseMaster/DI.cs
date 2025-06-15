@@ -12,8 +12,6 @@ namespace WarehouseMaster
         {
             return services
                 .AddScoped<IStafferRepository, StafferRepository>()
-                .AddScoped<ICategoryRepository, CategoryRepository>()
-                .AddScoped<ISubCategoryRepository, SubCategoryRepository>()
                 .AddScoped<IPersonRepository, PersonRepository>()
                 .AddScoped<IWarehouseRepository, WarehouseRepository>()
                 .AddScoped<IEntranceRepository, EntranceRepository>()
@@ -26,8 +24,6 @@ namespace WarehouseMaster
         {
             return services
                 .AddScoped<IStafferService, StafferService>()
-                .AddScoped<ICategoryService, CategoryService>()
-                .AddScoped<ISubCategoryService, SubCategoryService>()
                 .AddScoped<IWarehouseService, WarehouseService>()
                 .AddScoped<IEntranceService, EntranceService>()
                 .AddScoped<IShipmentService, ShipmentService>()

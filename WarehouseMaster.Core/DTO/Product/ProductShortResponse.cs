@@ -10,7 +10,7 @@ using WarehouseMaster.Domain.Entities;
 
 namespace WarehouseMaster.Core.DTO.Product
 {
-    public class ProductResponse
+    public class ProductShortResponse
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
@@ -20,8 +20,6 @@ namespace WarehouseMaster.Core.DTO.Product
         public Double Cost { get; set; }
         public int Count { get; set; }
         public string QRCode { get; set; } = string.Empty;
-        public StafferResponse Staffer { get; set; } = new StafferResponse();
         public ProviderResponse Provider { get; set; } =  new ProviderResponse();
-        public EntranceShortResponse Entrance { get; set; } = new EntranceShortResponse();
     }
 }

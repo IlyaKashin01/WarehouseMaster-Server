@@ -10,19 +10,12 @@ namespace WarehouseMaster.Controllers
 {
     [Route("api/entrance")]
     [ApiController]
-    public class EntranceController : ControllerBase
+    public class EntranceController(IEntranceService entranceService) : ControllerBase
     {
-        private readonly IEntranceService _entranceService;
-
-        public EntranceController(IEntranceService entranceService)
-        {
-            _entranceService = entranceService;
-        }
-
         [HttpGet("getAll")]
         public async Task<ActionResult<OperationResult<IEnumerable<EntranceResponse>>>> GetAll(int warehouseId)
         {
-            var response = await _entranceService.GetAllEntranceAsync(warehouseId);
+            var response = await entranceService.GetAllEntranceAsync(warehouseId);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
@@ -30,7 +23,7 @@ namespace WarehouseMaster.Controllers
         [HttpGet("get")]
         public async Task<ActionResult<OperationResult<EntranceResponse>>> Get(int id)
         {
-            var response = await _entranceService.GetEntranceByIdAsync(id);
+            var response = await entranceService.GetEntranceByIdAsync(id);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
@@ -38,7 +31,7 @@ namespace WarehouseMaster.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<OperationResult<int>>> Post(EntranceRequest request)
         {
-            var response = await _entranceService.CreateEntranceAsync(request);
+            var response = await entranceService.CreateEntranceAsync(request);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
@@ -46,7 +39,7 @@ namespace WarehouseMaster.Controllers
         [HttpDelete("delete")]
         public async Task<ActionResult<OperationResult<bool>>> Delete(int id)
         {
-            var response = await _entranceService.DeleteEntranceAsync(id);
+            var response = await entranceService.DeleteEntranceAsync(id);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }

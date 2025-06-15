@@ -17,12 +17,13 @@ namespace WarehouseMaster.Data.ModelConfig
             builder.ToTable("product");
             builder.Property(p => p.Name).HasColumnName("name").IsRequired();
             builder.Property(p => p.Description).HasColumnName("description").IsRequired();
-            builder.Property(p => p.CategoryId).HasColumnName("category_id").IsRequired();
-            builder.Property(p => p.SubcategoryId).HasColumnName("subcategory_id");
+            builder.Property(p => p.Category).HasColumnName("category").IsRequired();
+            builder.Property(p => p.Subcategory).HasColumnName("sub_category").IsRequired();
             builder.Property(p => p.Cost).HasColumnName("cost").IsRequired();
             builder.Property(p => p.Count).HasColumnName("count").IsRequired();
             builder.Property(p => p.StafferId).HasColumnName("staffer_id").IsRequired();
             builder.Property(p => p.ProviderId).HasColumnName("provider_id");
+            builder.Property(x => x.EntranceId).HasColumnName("entrance_id");
             builder.Property(p => p.QRCode).HasColumnName("qr_code").IsRequired();
             builder.Property(x => x.CreatedDate)
                 .HasColumnName("created_date")

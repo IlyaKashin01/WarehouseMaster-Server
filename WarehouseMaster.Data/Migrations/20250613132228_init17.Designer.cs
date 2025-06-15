@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using WarehouseMaster.Data;
@@ -11,9 +12,11 @@ using WarehouseMaster.Data;
 namespace WarehouseMaster.Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250613132228_init17")]
+    partial class init17
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,6 +45,10 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("entrance_date");
 
+                    b.Property<int>("ProductId")
+                        .HasColumnType("integer")
+                        .HasColumnName("product_id");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("integer")
                         .HasColumnName("quantity");
@@ -63,6 +70,8 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnName("warehouse_id");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
 
                     b.HasIndex("StafferId");
 
@@ -355,10 +364,6 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnType("text")
                         .HasColumnName("description");
 
-                    b.Property<int?>("EntranceId")
-                        .HasColumnType("integer")
-                        .HasColumnName("entrance_id");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
@@ -390,8 +395,6 @@ namespace WarehouseMaster.Data.Migrations
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("EntranceId");
 
                     b.HasIndex("ProviderId");
 
@@ -634,6 +637,12 @@ namespace WarehouseMaster.Data.Migrations
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.Entrance", b =>
                 {
+                    b.HasOne("WarehouseMaster.Domain.Entities.Product", "Product")
+                        .WithMany()
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("WarehouseMaster.Domain.Entities.Staffer", "Staffer")
                         .WithMany()
                         .HasForeignKey("StafferId")
@@ -645,6 +654,8 @@ namespace WarehouseMaster.Data.Migrations
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Product");
 
                     b.Navigation("Staffer");
 
@@ -705,10 +716,6 @@ namespace WarehouseMaster.Data.Migrations
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.Product", b =>
                 {
-                    b.HasOne("WarehouseMaster.Domain.Entities.Entrance", "Entrance")
-                        .WithMany("Products")
-                        .HasForeignKey("EntranceId");
-
                     b.HasOne("WarehouseMaster.Domain.Entities.Provider", "Provider")
                         .WithMany()
                         .HasForeignKey("ProviderId")
@@ -726,8 +733,6 @@ namespace WarehouseMaster.Data.Migrations
                         .HasForeignKey("WarehouseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Entrance");
 
                     b.Navigation("Provider");
 
@@ -780,11 +785,6 @@ namespace WarehouseMaster.Data.Migrations
                     b.Navigation("Person");
 
                     b.Navigation("Warehouse");
-                });
-
-            modelBuilder.Entity("WarehouseMaster.Domain.Entities.Entrance", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("WarehouseMaster.Domain.Entities.GroupChatRoom", b =>

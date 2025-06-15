@@ -25,17 +25,13 @@ namespace WarehouseMaster.Core.Mappings
 
             CreateMap<StafferRequest, Person>();
 
-            CreateMap<CategoryRequest, Category>();
-            CreateMap<Category, CategoryResponse>();
-
-            CreateMap<SubCategoryRequest, SubCategory>();
-            CreateMap<SubCategory, SubCategoryResponse>();
-
             CreateMap<ProductRequest, Product>();
             CreateMap<Product, ProductResponse>();
+            CreateMap<Product, ProductShortResponse>();
 
             CreateMap<EntranceRequest, Entrance>();
             CreateMap<Entrance, EntranceResponse>();
+            CreateMap<Entrance, EntranceShortResponse>();
 
             CreateMap<ShipmentRequest, Shipment>();
             CreateMap<Shipment, ShipmentResponse>();

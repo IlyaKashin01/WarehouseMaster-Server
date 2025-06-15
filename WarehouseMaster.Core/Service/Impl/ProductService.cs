@@ -11,73 +11,60 @@ using WarehouseMaster.Common.OperationResult;
 
 namespace WarehouseMaster.Core.Service.Impl
 {
-    public class ProductService : IProductService
+    public class ProductService(
+        IMapper mapper,
+        IProductRepository productRepository,
+        ILogger<ProductService> logger,
+        IStafferRepository stafferRepository,
+        IWarehouseRepository warehouseRepository)
+        : IProductService
     {
-        private readonly IMapper _mapper;
-        private readonly ILogger<ProductService> _logger;
-        private readonly IProductRepository _productRepository;
-        private readonly ICategoryRepository _categoryRepository;
-        private readonly ISubCategoryRepository _subCategoryRepository;
-        private readonly IWarehouseRepository _warehouseRepository;
-        private readonly IStafferRepository _stafferRepository;
-
-        public ProductService(IMapper mapper, IProductRepository productRepository, ILogger<ProductService> logger, ICategoryRepository categoryRepository, ISubCategoryRepository subCategoryRepository, IStafferRepository stafferRepository, IWarehouseRepository warehouseRepository)
-        {
-            _mapper = mapper;
-            _productRepository = productRepository;
-            _logger = logger;
-            _categoryRepository = categoryRepository;
-            _subCategoryRepository = subCategoryRepository;
-            _stafferRepository = stafferRepository;
-            _warehouseRepository = warehouseRepository;
-        }
-
         public async Task<OperationResult<int>> CreateProductAsync(ProductRequest request)
         {
-            _logger.LogInformation($"Обращение к методу создания продукта");
-            var product = _mapper.Map<Product>(request);
-            var category = await _categoryRepository.GetByNameAsync(request.NameCategory);
-            var staffer = await _stafferRepository.GetByIdAsync(product.StafferId);
-            var warehouse = await _warehouseRepository.GetByIdAsync(request.WarehouseId);
-            if (category != null && staffer != null && warehouse != null)
+            logger.LogInformation($"Обращение к методу создания продукта");
+            var product = mapper.Map<Product>(request);
+            var staffer = await stafferRepository.GetByIdAsync(product.StafferId);
+            var warehouse = await warehouseRepository.GetByIdAsync(request.WarehouseId);
+            if ( staffer != null && warehouse != null)
             {
-                product.Category = category;
                 product.Staffer = staffer;
                 product.Warehouse = warehouse;
             }
             else {
-                _logger.LogError("Попытка добавления товара без указания категории или сотрудника");
+                logger.LogError("Попытка добавления товара без указания категории или сотрудника");
                 return OperationResult<int>.Fail(OperationCode.ValidationError, "для добавления продукта необходимо указать категорию и сотрудника");
             }
-            if (request.NameSubCategory != null)
-            {
-                var subCategory = await _subCategoryRepository.GetByNameAsync(request.NameSubCategory);
-                if (subCategory != null)
-                    product.Subcategory = subCategory;
-            }
+            
             product.QRCode = GenerateQrCode(product);
-            var response = await _productRepository.CreateAsync(product);
+            var response = await productRepository.CreateAsync(product);
             return new OperationResult<int>(response);
         }
 
         public async Task<OperationResult<bool>> DeleteProductAsync(int id)
         {
-            _logger.LogInformation($"Обращение к методу удаления продукта");
-            var reponse = await _productRepository.DeleteAsync(id);
+            logger.LogInformation($"Обращение к методу удаления продукта");
+            var reponse = await productRepository.DeleteAsync(id);
             return new OperationResult<bool>(reponse);
         }
 
         public async Task<OperationResult<ProductResponse>> GetProductByIdAsync(int id)
         {
-            _logger.LogInformation($"Обращение к методу получения продукта");
-            var response = await _productRepository.GetByIdAsync(id);
-            return new OperationResult<ProductResponse>(_mapper.Map<ProductResponse>(response));
+            logger.LogInformation($"Обращение к методу получения продукта");
+            var response = await productRepository.GetByIdAsync(id);
+            return new OperationResult<ProductResponse>(mapper.Map<ProductResponse>(response));
+        }
+        
+        public async Task<OperationResult<IEnumerable<ProductResponse>>> GetAllProductsByWarehouseAsync(int warehouseId)
+        {
+            logger.LogInformation($"Обращение к методу получения продукта");
+            var response = await productRepository.GetAllByWarehouseIdAsync(warehouseId);
+            return new OperationResult<IEnumerable<ProductResponse>>(mapper.Map<IEnumerable<ProductResponse>>(response));
         }
 
         public async Task<OperationResult<bool>> IsExistProductAsync(int id)
         {
-            _logger.LogInformation($"Обращение к методу проверки существования продукта");
-            var reponse = await _productRepository.IsExistAsync(id);
+            logger.LogInformation($"Обращение к методу проверки существования продукта");
+            var reponse = await productRepository.IsExistAsync(id);
             return new OperationResult<bool>(reponse);
         }
 
@@ -85,8 +72,8 @@ namespace WarehouseMaster.Core.Service.Impl
         {
             var content = $"Name: {product.Name}\n" +
                 $"Description: {product.Description}\n" +
-                $"Category: {product.Category.Name}\n" +
-                $"Subcategory: {product.Subcategory.Name}\n" +
+                $"Category: {product.Category}\n" +
+                $"Subcategory: {product.Subcategory}\n" +
                 $"Quantity: {product.Count}\n" +
                 $"Cost: {product.Cost}\n" +
                 $"Accepted by an employee: {product.Staffer.PersonId}";

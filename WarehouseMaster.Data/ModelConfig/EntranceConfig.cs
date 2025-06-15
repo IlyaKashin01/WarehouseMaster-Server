@@ -16,7 +16,7 @@ namespace WarehouseMaster.Data.ModelConfig
             base.Configure(builder);
             builder.ToTable("entrance");
             builder.Property(x => x.WarehouseId).HasColumnName("warehouse_id");
-            builder.Property(x => x.ProductId).HasColumnName("product_id");
+            // builder.Property(x => x.ProductId).HasColumnName("product_id");
             builder.Property(x => x.EntranceDate).HasColumnName("entrance_date");
             builder.Property(x => x.StafferId).HasColumnName("staffer_id");
             builder.Property(x => x.Quantity).HasColumnName("quantity");

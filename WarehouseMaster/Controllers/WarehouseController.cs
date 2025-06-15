@@ -8,19 +8,12 @@ namespace WarehouseMaster.Controllers
 {
     [Route("api/warehouse")]
     [ApiController]
-    public class WarehouseController : ControllerBase
+    public class WarehouseController(IWarehouseService warehouseService) : ControllerBase
     {
-        private readonly IWarehouseService _warehouseService;
-
-        public WarehouseController(IWarehouseService warehouseService)
-        {
-            _warehouseService = warehouseService;
-        }
-
         [HttpGet("all")]
-        public async Task<ActionResult<OperationResult<IEnumerable<WarehouseResponse>>>> Get()
+        public async Task<ActionResult<OperationResult<IEnumerable<WarehouseResponse>>>> GetAll()
         {
-            var response =  await _warehouseService.GetAllWarehousesAsync();
+            var response =  await warehouseService.GetAllWarehousesAsync();
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
@@ -28,21 +21,23 @@ namespace WarehouseMaster.Controllers
         [HttpPost("create")]
         public async Task<ActionResult<OperationResult<int>>> Post(WarehouseRequest request)
         {
-            var response =  await _warehouseService.CreateWarehouseAsync(request);
+            var response =  await warehouseService.CreateWarehouseAsync(request);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }
 
-        [HttpPut("{id}")]
-        public Task<OperationResult<bool>> Put(CategoryRequest request)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<OperationResult<WarehouseResponse>>> Get(int id)
         {
-            throw new NotImplementedException();
+            var response = await warehouseService.GetWarehouseByIdAsync(id);
+            if (response.Success) return Ok(response);
+            return BadRequest(response);
         }
 
         [HttpDelete("delete")]
         public async Task<ActionResult<OperationResult<bool>>> Delete(int id)
         {
-            var response = await _warehouseService.DeleteWarehouseAsync(id);
+            var response = await warehouseService.DeleteWarehouseAsync(id);
             if (response.Success) return Ok(response);
             return BadRequest(response);
         }

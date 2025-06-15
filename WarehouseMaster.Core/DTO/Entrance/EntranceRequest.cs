@@ -11,8 +11,7 @@ namespace WarehouseMaster.Core.DTO.Entrance
     public class EntranceRequest
     {
         public int WarehouseId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public List<ProductRequest> Products { get; set; } =  new List<ProductRequest>();
         public DateTime EntranceDate { get; set; }
         public int StafferId { get; set; }
     }
